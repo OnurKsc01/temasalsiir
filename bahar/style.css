@@ -279,3 +279,56 @@ body {
     transform: translateX(-5px); /* Sola doğru hafifçe hareket eder */
     box-shadow: 0 0 15px rgba(255, 255, 255, 0.4); /* Parlama efekti */
 }
+@media screen and (max-width: 768px) {
+    
+    /* 1. Başlığı ve Yazıları Düzenle */
+    .content {
+        top: 10% !important; /* Yazıyı daha yukarı al */
+        width: 90% !important;
+    }
+    .content h1 {
+        font-size: 3rem !important; /* Başlığı küçült */
+    }
+    .content p {
+        font-size: 1rem !important;
+    }
+
+    /* 2. Yan Taraftaki Yazı Kutularını Düzenle */
+    /* Mobilde yanlarda değil, ortada ve alt alta olsunlar */
+    .side-text {
+        position: fixed !important;
+        width: 80% !important;
+        left: 50% !important; 
+        right: auto !important;
+        transform: translateX(-50%) !important;
+        text-align: center !important;
+        padding: 15px !important;
+        top: auto !important;
+    }
+
+    /* Sol Kutu -> Üstte Gözüksün */
+    .side-text.left {
+        top: 180px !important;
+        z-index: 20;
+    }
+
+    /* Sağ Kutu -> Altta Gözüksün */
+    .side-text.right {
+        top: 320px !important; 
+        z-index: 20;
+    }
+
+    /* 3. Çiçeği, Ağacı veya Figürü Küçült */
+    .flower-wrapper, 
+    .tree-container, 
+    .sad-figure {
+        transform: translateX(-50%) scale(0.6) !important; /* %40 küçült */
+        bottom: 40px !important; /* Biraz daha aşağıya al */
+    }
+    
+    /* 4. Geri Dön Butonunu Küçült */
+    .back-btn {
+        top: 10px;
+        left: 10px;
+        padding: 8px 12px;
+        font-size: 0.8rem;
