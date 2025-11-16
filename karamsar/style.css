@@ -1,0 +1,268 @@
+/* Genel Ayarlar */
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #050505; /* Neredeyse tam siyah */
+    color: #b0b0b0; /* Soluk gri yazı rengi */
+    font-family: 'Courier New', Courier, monospace; /* Daktilo tarzı font */
+    height: 100vh;
+    overflow: hidden; /* Kaydırma çubuklarını gizle */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+/* === YAĞMUR EFEKTİ === */
+.rain {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none; /* Tıklamaları engellemesin */
+}
+
+.drop {
+    position: absolute;
+    width: 2px;
+    height: 100px;
+    background: linear-gradient(transparent, rgba(255, 255, 255, 0.2));
+    top: -150px;
+    animation: fall linear infinite;
+}
+
+/* Yağmur damlalarını rastgele yerlere ve hızlara dağıtmak için nth-child kullanımı */
+.drop:nth-child(1) { left: 5%; animation-duration: 1s; animation-delay: 0s; }
+.drop:nth-child(2) { left: 12%; animation-duration: 1.5s; animation-delay: 0.2s; }
+.drop:nth-child(3) { left: 25%; animation-duration: 1.2s; animation-delay: 0.5s; }
+.drop:nth-child(4) { left: 33%; animation-duration: 0.8s; animation-delay: 0.1s; }
+.drop:nth-child(5) { left: 45%; animation-duration: 1.6s; animation-delay: 0.9s; }
+.drop:nth-child(6) { left: 58%; animation-duration: 1.1s; animation-delay: 0.3s; }
+.drop:nth-child(7) { left: 66%; animation-duration: 1.3s; animation-delay: 0.7s; }
+.drop:nth-child(8) { left: 78%; animation-duration: 0.9s; animation-delay: 0.2s; }
+.drop:nth-child(9) { left: 89%; animation-duration: 1.4s; animation-delay: 0.6s; }
+.drop:nth-child(10) { left: 95%; animation-duration: 1.7s; animation-delay: 0s; }
+.drop:nth-child(11) { left: 18%; animation-duration: 1.1s; animation-delay: 1s; }
+.drop:nth-child(12) { left: 52%; animation-duration: 1.4s; animation-delay: 1.2s; }
+.drop:nth-child(13) { left: 72%; animation-duration: 0.9s; animation-delay: 1.5s; }
+.drop:nth-child(14) { left: 82%; animation-duration: 1.2s; animation-delay: 0.8s; }
+.drop:nth-child(15) { left: 38%; animation-duration: 1.5s; animation-delay: 1.1s; }
+
+@keyframes fall {
+    0% { transform: translateY(-200px); opacity: 0; }
+    50% { opacity: 1; }
+    100% { transform: translateY(110vh); opacity: 0; }
+}
+
+/* === YAN YAZI ALANLARI (YENİ) === */
+.side-text {
+    position: absolute;
+    top: 9%; /* Ekranın yaklaşık 1/3 yüksekliğinde */
+    width: 340px; /* Metin kutusunun genişliği */
+    z-index: 10;
+    opacity: 0; /* Başlangıçta görünmez */
+    animation: fadeInText 3s forwards; /* Yavaşça belirme efekti */
+    animation-delay: 1s; /* Biraz bekleyip öyle gelsin */
+    background-color: rgba(80, 80, 80, 0.2); /* Hafif gri ve alpha tonlu arka plan */
+    padding: 20px; /* Kutunun içine biraz boşluk */
+    border-radius: 8px; /* Hafif yuvarlatılmış köşeler */
+    border: 1px solid rgba(255, 255, 255, 0.05); /* Çok ince, belli belirsiz bir kenarlık */
+}
+
+.side-text h2 {
+    font-size: 1.5rem;
+    color: #999;
+    border-bottom: 1px solid #333; /* Altına ince bir çizgi */
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.side-text p {
+    font-size: 0.9rem;
+    color: #666;
+    margin-top: 0;
+    line-height: 1.5;
+}
+
+/* Sol Kutu Konumu */
+.side-text.left {
+    left: 60px;
+    text-align: left;
+}
+
+/* Sağ Kutu Konumu */
+.side-text.right {
+    right: 60px;
+    text-align: right;
+}
+
+
+/* === METİN ALANI === */
+.content {
+    z-index: 10;
+    text-align: center;
+    position: relative;
+    top: -50px;
+}
+
+h1 {
+    font-size: 4rem;
+    margin-bottom: 10px;
+    color: #e0e0e0;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    position: relative;
+    opacity: 0.8;
+}
+
+p {
+    font-size: 1.2rem;
+    color: #777;
+    margin-top: 20px;
+}
+
+/* Yavaşça beliren yazı animasyonu */
+.fade-in {
+    opacity: 0;
+    animation: fadeIn Text 4s forwards;
+    animation-delay: 2s;
+}
+
+@keyframes fadeInText {
+    to { opacity: 1; }
+}
+
+/* Başlık için Titreme (Glitch) Efekti */
+.glitch {
+    position: relative;
+}
+
+.glitch::before,
+.glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.glitch::before {
+    left: 2px;
+    text-shadow: -1px 0 red;
+    clip: rect(44px, 450px, 56px, 0);
+    animation: glitch-anim 5s infinite linear alternate-reverse;
+}
+
+.glitch::after {
+    left: -2px;
+    text-shadow: -1px 0 blue;
+    clip: rect(44px, 450px, 56px, 0);
+    animation: glitch-anim 5s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-anim {
+    0% { clip: rect(12px, 9999px, 56px, 0); }
+    5% { clip: rect(80px, 9999px, 12px, 0); }
+    10% { clip: rect(30px, 9999px, 96px, 0); }
+    15% { clip: rect(15px, 9999px, 24px, 0); }
+    20% { clip: rect(55px, 9999px, 4px, 0); }
+    100% { clip: rect(12px, 9999px, 56px, 0); }
+}
+
+/* === ÜZGÜN FİGÜR SİLUETİ === */
+.sad-figure {
+    position: absolute;
+    bottom: 60px; /* Zeminin üstünde */
+    right: 15%; /* Sağ tarafta */
+    width: 100px;
+    height: 120px;
+    z-index: 5;
+    opacity: 0.7;
+    filter: blur(1px); /* Hafif bulanık, hayalet gibi */
+}
+
+/* Kafa */
+.sad-figure .head {
+    width: 35px;
+    height: 35px;
+    background-color: #1a1a1a;
+    border-radius: 50%;
+    position: absolute;
+    top: 20px;
+    left: 15px;
+    box-shadow: -2px 2px 10px rgba(0,0,0,0.8);
+    z-index: 2;
+    transform: rotate(20deg); /* Kafa öne eğik */
+}
+
+/* Vücut (Dizlerini çekmiş oturan form) */
+.sad-figure .body {
+    width: 60px;
+    height: 70px;
+    background-color: #1a1a1a;
+    border-radius: 40% 50% 50% 40%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    box-shadow: inset 5px 5px 10px rgba(0,0,0,0.9);
+}
+
+/* Gölge */
+.sad-figure .shadow {
+    width: 120px;
+    height: 20px;
+    background: rgba(0, 0, 0, 0.8);
+    border-radius: 50%;
+    position: absolute;
+    bottom: -10px;
+    left: -10px;
+    filter: blur(5px);
+}
+
+/* === ZEMİN === */
+.ground {
+    width: 100%;
+    height: 60px;
+    background: linear-gradient(to top, #000000, #111111);
+    position: absolute;
+    bottom: 0;
+    z-index: 4;
+    border-top: 1px solid #222;
+}
+
+/* === GERİ DÖNÜŞ BUTONU STİLİ === */
+.back-btn {
+    position: fixed; /* Sayfa kaysa bile sol üstte sabit kalır */
+    top: 25px;
+    left: 25px;
+    
+    /* Görünüm */
+    padding: 10px 20px;
+    background: rgba(255, 255, 255, 0.15); /* Hafif şeffaf beyaz */
+    backdrop-filter: blur(5px); /* Arkasındaki görüntüyü buzlar */
+    border: 1px solid rgba(255, 255, 255, 0.3); /* İnce parlak kenarlık */
+    border-radius: 30px; /* Yuvarlak hatlar */
+    
+    /* Yazı Ayarları */
+    color: #ffffff;
+    text-decoration: none; /* Alt çizgiyi kaldır */
+    font-size: 1rem;
+    font-family: inherit; /* Sayfanın kendi fontunu kullanır */
+    font-weight: 600;
+    letter-spacing: 1px;
+    
+    /* Katman ve Efektler */
+    z-index: 9999; /* Yağmurun ve yaprakların üstünde dursun */
+    transition: all 0.3s ease; /* Yumuşak geçiş */
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+/* Üzerine gelince (Hover) */
+.back-btn:hover {
+    background: rgba(255, 255, 255, 0.3); /* Biraz daha parlar */
+    transform: translateX(-5px); /* Sola doğru hafifçe hareket eder */
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.4); /* Parlama efekti */
+}

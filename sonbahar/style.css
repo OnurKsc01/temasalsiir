@@ -1,0 +1,247 @@
+/* === GENEL AYARLAR === */
+body {
+    margin: 0;
+    padding: 0;
+    /* Gün batımı gradyanı: Mordan sıcak turuncuya */
+    background: linear-gradient(to bottom, #2c3e50, #fd746c); 
+    color: #fff;
+    font-family: 'Georgia', 'Times New Roman', serif; /* Zarif, tırnaklı font */
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+/* === YAPRAK ANİMASYONU === */
+.leaves-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.leaf {
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    background-color: #e67e22; /* Turuncu */
+    border-radius: 0 50% 0 50%; /* Yaprak şekli */
+    top: -20px;
+    animation: fall linear infinite, sway ease-in-out infinite alternate;
+    opacity: 0.8;
+}
+
+/* Yaprakların renklerini ve boyutlarını çeşitlendirelim */
+.leaf:nth-child(3n) { background-color: #d35400; width: 12px; height: 12px; } /* Koyu turuncu */
+.leaf:nth-child(3n+1) { background-color: #f1c40f; width: 18px; height: 18px; } /* Sarı */
+.leaf:nth-child(3n+2) { background-color: #c0392b; } /* Kırmızımsı */
+
+/* Rastgele konum ve hız ayarları */
+.leaf:nth-child(1) { left: 10%; animation-duration: 8s, 3s; animation-delay: 0s; }
+.leaf:nth-child(2) { left: 20%; animation-duration: 10s, 4s; animation-delay: 2s; }
+.leaf:nth-child(3) { left: 30%; animation-duration: 7s, 2.5s; animation-delay: 4s; }
+.leaf:nth-child(4) { left: 40%; animation-duration: 11s, 3.5s; animation-delay: 1s; }
+.leaf:nth-child(5) { left: 50%; animation-duration: 9s, 3s; animation-delay: 3s; }
+.leaf:nth-child(6) { left: 60%; animation-duration: 12s, 4.5s; animation-delay: 0.5s; }
+.leaf:nth-child(7) { left: 70%; animation-duration: 8.5s, 3.2s; animation-delay: 5s; }
+.leaf:nth-child(8) { left: 80%; animation-duration: 10.5s, 3.8s; animation-delay: 1.5s; }
+.leaf:nth-child(9) { left: 90%; animation-duration: 9.5s, 2.8s; animation-delay: 2.5s; }
+.leaf:nth-child(10) { left: 15%; animation-duration: 11s, 4s; animation-delay: 6s; }
+.leaf:nth-child(11) { left: 85%; animation-duration: 7.5s, 3.5s; animation-delay: 3.5s; }
+.leaf:nth-child(12) { left: 55%; animation-duration: 13s, 5s; animation-delay: 0.2s; }
+
+/* Düşme Hareketi */
+@keyframes fall {
+    0% { top: -10%; transform: rotate(0deg); opacity: 1; }
+    100% { top: 100%; transform: rotate(360deg); opacity: 0; }
+}
+
+/* Sağa Sola Sallanma Hareketi */
+@keyframes sway {
+    0% { margin-left: 0px; }
+    100% { margin-left: 50px; }
+}
+
+/* === ANA METİN ALANI === */
+.content {
+    text-align: center;
+    z-index: 10;
+    position: relative;
+    top: -50px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.content h1 {
+    font-size: 5rem;
+    margin: 0;
+    font-weight: normal;
+    letter-spacing: 5px;
+    color: #ffeebb;
+    animation: textFadeIn 3s ease-out;
+}
+
+.separator {
+    width: 100px;
+    height: 2px;
+    background-color: #fff;
+    margin: 20px auto;
+    opacity: 0.6;
+}
+
+.content p {
+    font-size: 1.3rem;
+    font-style: italic;
+    color: #ffdcb8;
+    margin-top: 10px;
+    opacity: 0;
+    animation: textFadeIn 3s ease-out forwards;
+    animation-delay: 1.5s;
+}
+
+@keyframes textFadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* === YAN YAZI ALANLARI === */
+.side-text {
+    position: absolute;
+    top: 9%;
+    width: 290px;
+    padding: 20px;
+    background: rgba(60, 20, 0, 0.3); /* Çok hafif kahverengi/şeffaf */
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    z-index: 5;
+    color: #eee;
+    opacity: 0;
+    animation: sideFade 2s forwards;
+    animation-delay: 2.5s;
+}
+
+.side-text h2 {
+    font-size: 1.4rem;
+    margin-top: 0;
+    color: #ffcb85;
+    border-bottom: 1px solid rgba(255,200,133, 0.3);
+    padding-bottom: 8px;
+}
+
+.side-text p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+.side-text.left { left: 50px; text-align: left; }
+.side-text.right { right: 50px; text-align: right; }
+
+@keyframes sideFade {
+    to { opacity: 1; }
+}
+
+/* === AĞAÇ SİLÜETİ === */
+.tree-container {
+    position: absolute;
+    bottom: 60px; /* Zeminin üstünde */
+    right: 15%;
+    width: 200px;
+    height: 300px;
+    z-index: 4;
+    opacity: 0.9;
+}
+
+.trunk {
+    width: 16px;
+    height: 300px;
+    background-color: #1a0f0a; /* Koyu kahve/siyah */
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 5px;
+}
+
+.branch {
+    background-color: #1a0f0a;
+    position: absolute;
+    border-radius: 5px;
+}
+
+.branch-1 {
+    width: 100px; height: 8px;
+    bottom: 180px; left: 50%;
+    transform-origin: left center;
+    transform: rotate(-35deg);
+}
+
+.branch-2 {
+    width: 80px; height: 7px;
+    bottom: 220px; right: 50%;
+    transform-origin: right center;
+    transform: rotate(25deg);
+}
+
+.branch-3 {
+    width: 60px; height: 6px;
+    bottom: 140px; right: 50%;
+    transform-origin: right center;
+    transform: rotate(15deg);
+}
+
+.branch-4 {
+    width: 50px; height: 5px;
+    bottom: 260px; left: 50%;
+    transform-origin: left center;
+    transform: rotate(-20deg);
+}
+
+/* === ZEMİN === */
+.ground {
+    width: 100%;
+    height: 60px;
+    background: #1a0f0a; /* Ağaçla aynı koyu ton */
+    position: absolute;
+    bottom: 0;
+    z-index: 5;
+    box-shadow: 0 -5px 20px rgba(0,0,0,0.5);
+}
+
+/* === GERİ DÖNÜŞ BUTONU STİLİ === */
+.back-btn {
+    position: fixed; /* Sayfa kaysa bile sol üstte sabit kalır */
+    top: 25px;
+    left: 25px;
+    
+    /* Görünüm */
+    padding: 10px 20px;
+    background: rgba(255, 255, 255, 0.15); /* Hafif şeffaf beyaz */
+    backdrop-filter: blur(5px); /* Arkasındaki görüntüyü buzlar */
+    border: 1px solid rgba(255, 255, 255, 0.3); /* İnce parlak kenarlık */
+    border-radius: 30px; /* Yuvarlak hatlar */
+    
+    /* Yazı Ayarları */
+    color: #ffffff;
+    text-decoration: none; /* Alt çizgiyi kaldır */
+    font-size: 1rem;
+    font-family: inherit; /* Sayfanın kendi fontunu kullanır */
+    font-weight: 600;
+    letter-spacing: 1px;
+    
+    /* Katman ve Efektler */
+    z-index: 9999; /* Yağmurun ve yaprakların üstünde dursun */
+    transition: all 0.3s ease; /* Yumuşak geçiş */
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+/* Üzerine gelince (Hover) */
+.back-btn:hover {
+    background: rgba(255, 255, 255, 0.3); /* Biraz daha parlar */
+    transform: translateX(-5px); /* Sola doğru hafifçe hareket eder */
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.4); /* Parlama efekti */
+}
