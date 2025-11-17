@@ -5,36 +5,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Duygu Koleksiyonu</title>
     <style>
-        /* === GENEL AYARLAR === */
+        /* === GENEL SAYFA STİLİ === */
         body {
             margin: 0;
             padding: 0;
-            min-height: 100vh;
+            height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             background-color: #121212;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
         }
 
-        /* Arka Plan Animasyonu */
+        /* Arka plan için hafif hareketli bir gradyan */
         body::before {
             content: '';
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             background: linear-gradient(45deg, #1a1a1a, #2c3e50, #000000);
             background-size: 400% 400%;
             z-index: -1;
             animation: gradientBG 15s ease infinite;
         }
+
         @keyframes gradientBG {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
 
-        /* Başlık */
+        /* === BAŞLIK ALANI === */
         h1 {
             color: #fff;
             font-weight: 300;
@@ -42,23 +47,20 @@
             letter-spacing: 5px;
             margin-bottom: 50px;
             text-transform: uppercase;
-            text-align: center;
             text-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            text-align: center;
         }
 
-        /* Menü Kutusu */
+        /* === MENÜ KONTEYNERİ === */
         .menu-container {
             display: flex;
-            gap: 30px;
-            flex-wrap: wrap;
+            gap: 30px; /* Kartlar arası boşluk */
+            flex-wrap: wrap; /* Mobilde alt alta geçsin */
             justify-content: center;
             z-index: 10;
-            padding: 20px;
-            width: 100%;
-            box-sizing: border-box;
         }
 
-        /* Kartlar */
+        /* === KART (LİNK) STİLLERİ === */
         .card {
             width: 220px;
             height: 300px;
@@ -66,74 +68,120 @@
             text-decoration: none;
             display: flex;
             flex-direction: column;
-            justify-content: flex-end;
+            justify-content: flex-end; /* Yazıyı alta it */
             padding: 20px;
             box-sizing: border-box;
+            transition: all 0.4s ease;
             position: relative;
             overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
             border: 1px solid rgba(255,255,255,0.1);
-            transition: transform 0.4s ease;
         }
-        .card:hover { transform: translateY(-10px); }
 
-        .card h2 { color: #fff; font-size: 1.5rem; margin: 0; z-index: 2; }
-        .card p { color: rgba(255,255,255,0.8); font-size: 0.9rem; margin-top: 10px; z-index: 2; }
-        
-        /* Kart Arka Plan Karartması */
+        /* Hover (Üzerine gelince) Efektleri */
+        .card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+        }
+
+        .card h2 {
+            color: #fff;
+            font-size: 1.5rem;
+            margin: 0;
+            z-index: 2;
+        }
+
+        .card p {
+            color: rgba(255,255,255,0.8);
+            font-size: 0.9rem;
+            margin-top: 10px;
+            z-index: 2;
+        }
+
+        /* Kartların Arka Plan Kaplaması (Koyuluk verir) */
         .card::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); z-index: 1;
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+            z-index: 1;
         }
 
-        /* Renkler */
-        .card.spring { background: linear-gradient(to bottom, #4facfe, #00f2fe); }
-        .card.gloomy { background: #050505; border: 1px solid #333; }
-        .card.autumn { background: linear-gradient(to bottom, #2c3e50, #fd746c); }
+        /* --- 1. BAHAR KARTI ÖZEL STİLİ --- */
+        .card.spring {
+            background: linear-gradient(to bottom, #4facfe, #00f2fe);
+        }
+        .card.spring:hover {
+            border: 2px solid #fff;
+        }
 
-        footer { margin-top: 40px; color: #555; font-size: 0.8rem; }
+        /* --- 2. KARAMSAR KART ÖZEL STİLİ --- */
+        .card.gloomy {
+            background: #050505;
+            border: 1px solid #333;
+        }
+        .card.gloomy h2 {
+            font-family: 'Courier New', Courier, monospace;
+            letter-spacing: 2px;
+        }
+        .card.gloomy:hover {
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+        }
 
-        /* === TELEFON İÇİN ÖZEL AYARLAR (BURASI ÖNEMLİ) === */
-        @media screen and (max-width: 768px) {
-            h1 { font-size: 2rem; margin-bottom: 30px; }
-            
-            .card {
-                width: 90%; /* Kartları genişlet */
-                height: 120px; /* Yüksekliği azalt, yatay yap */
-                flex-direction: row; /* Yan yana diz */
-                align-items: center;
-                justify-content: flex-start;
-                gap: 20px;
-            }
-            
-            .card::before { background: linear-gradient(to right, rgba(0,0,0,0.8), transparent); }
-            .card p { display: none; } /* Mobilde açıklamayı gizle */
-        
-            
-                    /* === YENİ KART STİLLERİ === */
-                    .card.mother { background: linear-gradient(to bottom, #e96443, #904e95); }
-                    .card.newleaf { background: linear-gradient(to bottom, #11998e, #38ef7d); }
-                    /* === YENİ KART STİLLERİ BİTİŞ === */
-        
+        /* --- 3. SONBAHAR KARTI ÖZEL STİLİ --- */
+        .card.autumn {
+            background: linear-gradient(to bottom, #2c3e50, #fd746c);
+        }
+        .card.autumn h2 {
+            font-family: 'Georgia', serif;
+            font-style: italic;
+        }
+
+        /* Alt bilgi */
+        footer {
+            position: absolute;
+            bottom: 20px;
+            color: #555;
+            font-size: 0.8rem;
+        }
+/* === YENİ KART STİLLERİ === */
+        .card.mother { background: linear-gradient(to bottom, #e96443, #904e95); }
+        .card.newleaf { background: linear-gradient(to bottom, #11998e, #38ef7d); }
+        /* === YENİ KART STİLLERİ BİTİŞ === */
     </style>
 </head>
 <body>
+
     <h1>Ruh Halini Seç</h1>
+
     <div class="menu-container">
-        <a href="bahar/bahar.html" class="card spring"><h2>Umut</h2><p>Baharın uyanışı.</p></a>
-        <a href="karamsar/karamsar.html" class="card gloomy"><h2>Boşluk</h2><p>Sessizlik ve yağmur.</p></a>
-        <a href="sonbahar/sonbahar.html" class="card autumn"><h2>Hazan</h2><p>Yaprak dökümü.</p></a>
-        <!-- === YENİ EKLENEN KARTLAR === -->
+        
+        <!-- 1. BAHAR LİNKİ -->
+        <a href="bahar/bahar.html" class="card spring">
+            <h2>Umut</h2>
+            <p>Baharın uyanışı, çiçekler ve mavi gökyüzü.</p>
+        </a>
+
+        <!-- 2. KARAMSAR LİNK -->
+        <a href="karamsar/karamsar.html" class="card gloomy">
+            <h2>Boşluk</h2>
+            <p>Yankı yok. Sadece yağmur ve sessizlik.</p>
+        </a>
+
+        <!-- 3. SONBAHAR LİNKİ -->
+        <a href="sonbahar/sonbahar.html" class="card autumn">
+            <h2>Hazan</h2>
+            <p>Yaprak dökümü, rüzgar ve huzurlu bir veda.</p>
+        </a>
+<!-- === YENİ EKLENEN KARTLAR === -->
         <a href="anne/anne.html" class="card mother"><h2>Anne İçin</h2><p>Koşulsuz sevgi.</p></a>
         <a href="temizsayfa/temizsayfa.html" class="card newleaf"><h2>Temiz Sayfa</h2><p>Yeniden başlamak.</p></a>
-        
     </div>
-    <footer style="font-size:150%;">Muhammed Onur Kuşcu'ya Aittir.</footer>
+
+    <footer>Muhammed Onur Kuşcu</footer>
+
 </body>
 </html>
-
-
-
-
-
-
-
