@@ -1,0 +1,198 @@
+/* === GENEL AYARLAR === */
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    font-family: 'Open Sans', Arial, sans-serif;
+}
+
+body {
+    /* Yeni Tema: Sisli Sabah Gradyanı */
+    background: linear-gradient(to top, #d4eaf7 0%, #ffffff 100%);
+    color: #333; /* Daha iyi okunabilirlik için koyu renk */
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* === GERİ DÖNÜŞ BUTONU STİLİ === */
+.back-btn {
+    position: fixed; top: 25px; left: 25px;
+    padding: 10px 20px;
+    background: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    border-radius: 30px;
+    color: #555;
+    text-decoration: none;
+    font-size: 1rem; font-family: inherit; font-weight: 600; letter-spacing: 1px;
+    z-index: 9999;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+.back-btn:hover {
+    background: rgba(255, 255, 255, 0.7);
+    transform: translateX(-5px);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+    color: #000;
+}
+
+/* === ANA METİN ALANI (ORTA) === */
+.content {
+    text-align: center; z-index: 10;
+    position: absolute; top: 20%; left: 50%; transform: translateX(-50%);
+    width: 100%; text-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+.content h1 {
+    font-size: 4rem; margin: 0; font-weight: 300; letter-spacing: 2px;
+    color: #2c3e50; /* Koyu mavi-gri */
+    animation: fadeInDown 2s ease-out;
+}
+.separator {
+    width: 100px; height: 2px; background-color: #a0b4c8;
+    margin: 15px auto; border-radius: 1px;
+}
+.content p {
+    font-size: 1.2rem; color: #5a7a9a; margin-top: 10px;
+    animation: fadeIn 3s ease-out forwards;
+}
+@keyframes fadeInDown { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+/* === YAN YAZI KUTULARI === */
+.side-text {
+    position: absolute; top: 10%; width: 300px; padding: 25px;
+    background: rgba(255, 255, 255, 0.6); backdrop-filter: blur(8px);
+    border-radius: 15px; border: 1px solid rgba(255, 255, 255, 0.9);
+    z-index: 5; color: #333; box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    opacity: 0; animation: sideFade 2s forwards; animation-delay: 1s;
+}
+.side-text h2 {
+    font-size: 1.5rem; margin-top: 0; color: #2c3e50; margin-bottom: 10px;
+}
+.side-text p {
+    font-size: 1rem; line-height: 1.6; margin: 0;
+}
+.side-text.left { left: 80px; text-align: left; }
+.side-text.right { right: 80px; text-align: right; }
+@keyframes sideFade { to { opacity: 1; } }
+
+
+/* === YENİ SABİT ANİMASYON: IŞIKLI KEMER === */
+.archway-container {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 250px;
+    height: 300px;
+    z-index: 4; /* Metinlerin arkasında, arka planın önünde */
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+/* Kemerin Sütunları */
+.archway-left-pillar,
+.archway-right-pillar {
+    width: 30px;
+    height: 200px;
+    background: #ffffff;
+    box-shadow: 0 0 15px rgba(255,255,255,0.7);
+    border-radius: 5px 5px 0 0;
+}
+
+.archway-left-pillar { margin-right: 60px; }
+.archway-right-pillar { margin-left: 60px; }
+
+/* Kemerin Üst Kısmı */
+.archway-top {
+    position: absolute;
+    width: 120px; /* Sütunlar arası boşluk + 2x sütun yarısı */
+    height: 60px; /* Genişliğin yarısı (yarım daire için) */
+    background: #ffffff;
+    border-radius: 60px 60px 0 0;
+    bottom: 200px; /* Sütunların bittiği yer */
+    box-shadow: 0 -5px 15px rgba(255,255,255,0.7);
+}
+
+/* Kemerin İçindeki Parlaklık (Nefes Alma Efekti) */
+.archway-glow {
+    position: absolute;
+    width: 100px;
+    height: 150px;
+    bottom: 0;
+    background: radial-gradient(ellipse at bottom, 
+        rgba(255, 255, 255, 0.8) 0%, 
+        rgba(255, 255, 255, 0) 70%
+    );
+    border-radius: 50px 50px 0 0;
+    animation: gentlePulse 5s ease-in-out infinite alternate;
+    z-index: -1; /* Sütunların arkasında */
+}
+
+@keyframes gentlePulse {
+    from {
+        opacity: 0.6;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1.05);
+    }
+}
+
+
+/* ================================================= */
+/* MOBİL UYUMLULUK KODLARI */
+/* ================================================= */
+@media screen and (max-width: 768px) {
+    
+    .content {
+        top: 10% !important; 
+        width: 90% !important;
+    }
+    .content h1 {
+        font-size: 2.5rem !important; 
+    }
+    .content p {
+        font-size: 0.9rem !important;
+    }
+
+    .side-text {
+        position: fixed !important;
+        width: 80% !important;
+        left: 50% !important; 
+        right: auto !important;
+        transform: translateX(-50%) !important;
+        text-align: center !important;
+        padding: 15px !important;
+        top: auto !important;
+    }
+
+    .side-text.left {
+        top: 180px !important;
+        z-index: 20;
+    }
+
+    .side-text.right {
+        top: 320px !important; 
+        z-index: 20;
+    }
+
+    /* Kemer animasyonunu küçült */
+    .archway-container {
+        transform: translateX(-50%) scale(0.6) !important;
+        bottom: 0px !important;
+    }
+    
+    .back-btn {
+        top: 10px !important;
+        left: 10px !important;
+        padding: 8px 12px !important;
+        font-size: 0.8rem !important;
+    }
+}
